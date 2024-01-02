@@ -5,7 +5,7 @@ pipeline{
     ansible 'Ansible'
     maven 'Maven'
   }
-  envoirnment{
+  environment{
     IMAGE_TAG = 'anjalisingh99/health:latest'
   }
   stages{
