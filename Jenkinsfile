@@ -40,9 +40,9 @@ pipeline
 				        sh "docker push $docker_user/$containerName:$tag"
 				        echo "***********image push sucessfully done*********"
               }  
-      }
+     	   }
+    	}
     }
-
     
   }
 }
