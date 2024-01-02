@@ -1,18 +1,35 @@
-pipeline{
+pipeline
+{
   agent any
 
-  tools{
+  tools
+  {
     ansible 'Ansible'
     maven 'Maven'
   }
-  environment{
+  environment
+  {
     IMAGE_TAG = 'anjalisingh99/health:latest'
   }
-  stages{
+
+  
+  stages
+  {
     stage('checkout'){
-      steps{
+      steps
+      {
         git 'https://github.com/Anjali-Singh-99/star-agile-health-care.git'
       }
     }
+
+    
+    stage('build'){
+      steps
+      {
+        sh 'mvn clean install'
+      }
+    }
+
+    
   }
 }
