@@ -30,6 +30,19 @@ pipeline
       }
     }
 
+    stage('docker build and push'){
+      steps
+      {
+        script{
+          withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+                sh "docker login -u $docker_user -p $docker_pass"
+				        sh "docker tag $containerName:$tag $docker_user/$containerName:$tag"
+				        sh "docker push $docker_user/$containerName:$tag"
+				        echo "***********image push sucessfully done*********"
+              }  
+      }
+    }
+
     
   }
 }
