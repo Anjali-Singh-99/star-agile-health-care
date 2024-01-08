@@ -25,24 +25,14 @@ pipeline {
 
         stage('docker build and push') {
             steps {
-                script {
-                    def (containerName, tag) = IMAGE_TAG.tokenize(':')
-
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
-                        // Docker login
-                        sh "docker login -u $docker_user -p $docker_pass"
-                        
-                        // Docker build
-                        sh "docker build -t $containerName:$tag ."
-
-                        // Docker tag
-                        sh "docker tag $containerName:$tag $docker_user/$containerName:$tag"
-
-                        // Docker push
-                        sh "docker push $docker_user/$containerName:$tag"
-
-                        echo "*********** Image push successfully done *********"
-                    }
+               script {
+                    def dockerUsername = 'anjalisingh99'
+                    def dockerPassword = 'Anjali@123'
+                    
+                    sh "echo '${dockerPassword}' | docker login -u '${dockerUsername}' --password-stdin"
+                    def customImage = docker.build(IMAGE_TAG)
+                    customImage.push()
+                }
                 }
             }
         }
