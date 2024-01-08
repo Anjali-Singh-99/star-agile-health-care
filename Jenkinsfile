@@ -36,5 +36,16 @@ pipeline {
                 
             }
         }
+        stage('deploy')
+        {
+             steps {
+                script {
+                    ansiblePlaybook(
+                        playbook: 'ansible-playbook.yml',
+                        inventory: 'hosts.ini',
+                    )
+                }
+            }
+        }
     }
 }
