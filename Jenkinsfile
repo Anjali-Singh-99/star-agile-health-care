@@ -33,7 +33,7 @@ pipeline {
                     def customImage = docker.build(IMAGE_TAG)
                     customImage.push()
                 }
-                }
+                
             }
         }
     }
