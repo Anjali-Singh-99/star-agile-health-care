@@ -10,7 +10,7 @@ pipeline {
         IMAGE_TAG = 'anjalisingh99/health:latest'
         containerName="anjali-heath"
         tag="latest"
-        dockerHubUser="anjalisingh99"
+        docker_user="anjalisingh99"
     }
 
     stages {
