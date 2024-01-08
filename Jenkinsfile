@@ -8,6 +8,9 @@ pipeline {
 
     environment {
         IMAGE_TAG = 'anjalisingh99/health:latest'
+        containerName="anjali-heath"
+        tag="latest"
+        dockerHubUser="anjalisingh99"
     }
 
     stages {
@@ -26,12 +29,13 @@ pipeline {
         stage('docker build and push') {
             steps {
                script {
-                    def dockerUsername = 'anjalisingh99'
-                    def dockerPassword = 'Anjali@123'
-                    
-                    sh "echo '${dockerPassword}' | docker login -u '${dockerUsername}' --password-stdin"
-                    def customImage = docker.build(IMAGE_TAG)
-                    customImage.push()
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+                      sh "docker login -u $docker_user -p $docker_pass"
+				      sh "docker tag $containerName:$tag $docker_user/$containerName:$tag"
+				      sh "docker push $docker_user/$containerName:$tag"
+				      echo "***********image push sucessfully done*********"
+            }
+                  
                 }
                 
             }
